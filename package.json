@@ -1,0 +1,20 @@
+{
+  "name": "gitlab-hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "dingtalk-robot-sender": "^1.2.0",
+    "lodash": "^4.17.20",
+    "querystring": "^0.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "scripts": {
+    "start": "nodemon --ignore '*.json' index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
