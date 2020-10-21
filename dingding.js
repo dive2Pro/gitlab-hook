@@ -55,7 +55,7 @@ class DingDing {
             )
 
             robot.text('review: 请这些同学review ' + info.atMobiles.map( s => `@${s}`).join(" "), {
-                ...info
+                atMobiles: info.atMobiles
             })
         }
     }
