@@ -27,7 +27,7 @@ class Store {
 
         if (data[mqId]) {
             const olds = Object.keys(data[mqId])
-            if (commentIds.every(id => olds.find(oldId => oldId === id))) {
+            if ( commentIds.length === olds.length && commentIds.every(id => olds.find(oldId => oldId === id))) {
                 return false;
             } else {
                 const oldObj = data[mqId];

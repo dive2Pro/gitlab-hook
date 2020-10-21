@@ -20,15 +20,13 @@ class DingDing {
                 if (await Store.load(info.id, 'done')) {
                     return;
                 }
-                
-
                 await Store.save(info.id, info.authorId);
                 const all = await Store.loadAll(info.id)
                 if(Object.values(all).every(Boolean)) {
                     await Store.maker(info.id, { done: true })
                     robot.markdown(info.title + "--" + info.target.dingding, 
                     `# ${info.title} \n\n` +
-                    `已经review 完毕， 可以合并了 \n\n [查看](${info.url}) `);
+                    `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url}) `);
 
                     robot.text(`Comment: 找最近的【查看】`, {
                         atMobiles: [info.target.dingding.phone],
@@ -56,7 +54,7 @@ class DingDing {
             `已经准备好被review了： [查看](${info.url}) `,
             )
 
-            robot.text('review: 请这些同学review', {
+            robot.text('review: 请这些同学review ' + info.atMobiles.map( s => `@${s}`).join(" "), {
                 ...info
             })
         }

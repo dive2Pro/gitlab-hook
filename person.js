@@ -10,7 +10,7 @@ module.exports = {
     171: {
         dingding: {
             name: '曾绮晴',
-            phone: '15221167235'
+            phone: '15521167235'
         },
         username: 'zengqiqing',
         id: 171
@@ -19,7 +19,7 @@ module.exports = {
         id: 84,
         dingding: {
             name: '黎杰',
-            phone: '176653083766'
+            phone: '17665308376'
         },
         username: 'jie'
     },
@@ -39,11 +39,11 @@ module.exports = {
             phone: '18680205694'
         }
     },
-    123: {
+    155: {
         dingding: {
             name: "陈航",
             phone: '18574929495'
         },
-        username: ''
+        username: 'chenhang'
     }
 }

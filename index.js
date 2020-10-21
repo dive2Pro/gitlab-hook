@@ -73,9 +73,9 @@ const handlerMergerequest = async ({ req, context}, res) => {
             id: object_attributes.id
         }
 
-        const data = new RegExp('(review:)(.+)?\\r\\n', 'gi').exec(description.replace("@", ""));
-        const users = data[2].split(" ");
-        if(users.indexOf('all')) {
+        const data = new RegExp('(review:)(.+)?(\\r\\n)*', 'gi').exec(description);
+        const users = data[2].trim().split(" ").filter(Boolean).map(username => username.replace("@", "").trim());
+        if(users.find((user) =>  user === 'all')) {
             info.isAtAll = true;
             info.atMobiles = Object.entries(Person).map(([k, v]) => v.dingding.phone)
         } else {
@@ -84,7 +84,7 @@ const handlerMergerequest = async ({ req, context}, res) => {
             })
         }
 
-        const isCreated = await Store.create(info.id, info.isAtAll  ? Object.keys(Person) : users.map( username => User[username].id))
+        const isCreated = await Store.create(info.id, info.isAtAll  ? Object.keys(Person) : users.map( username => Users[username].id))
         console.log(isCreated, ' -=-= isCrate')
         if(isCreated) {
             DingDing.dispatch('review', info)
