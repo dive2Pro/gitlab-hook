@@ -14,47 +14,86 @@ const robot = new Charbot({
 
 
 class DingDing {
-    async dispatch(type, info) {
-        if(type === 'comment') {
-            if(info.msg.toLowerCase().indexOf('lgtm') > -1) {
+    async dispatchComment(onType, info) {
+        if (onType === 'merge') {
+            if (info.msg.toLowerCase().indexOf('lgtm') > -1) {
                 if (await Store.load(info.id, 'done')) {
                     return;
                 }
                 await Store.save(info.id, info.authorId);
                 const all = await Store.loadAll(info.id)
-                if(Object.values(all).every(Boolean)) {
+                if (Object.values(all).every(Boolean)) {
                     await Store.maker(info.id, { done: true })
-                    robot.markdown(info.title + "--" + info.target.dingding, 
-                    `# ${info.title} \n\n` +
-                    `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url}) `);
+                    robot.markdown(info.title + "--" + info.target.dingding,
+                        `# ${info.title} \n\n` +
+                        `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url}) `);
+
+                    robot.text(`Comment: 找最近的【查看】`, {
+                        atMobiles: [info.target.dingding.phone],
+                    })
+                }
+            }
+        } else if (info.username === info.target.username) {
+            return;
+        } else if (onType === 'commit') {
+            // robot.markdown(info.title + "--" + info.target.dingding.name,
+            //     `# ${info.title} \n` +
+            //     `开发者： ${info.target.dingding.name} \n\n Comment:  \n\n` +
+            //     `${info.author} : ${info.msg} \n\n [查看](${info.url}) `);
+
+            // robot.text(`Comment: 找最近的【查看】`, {
+            //     atMobiles: [info.target.dingding.phone],
+            // })
+        } else if (onType === 'issue') {
+
+        }
+
+
+    }
+    async dispatch(type, info) {
+        if (type === 'comment') {
+            if (info.msg.toLowerCase().indexOf('lgtm') > -1) {
+                if (await Store.load(info.id, 'done')) {
+                    return;
+                }
+                await Store.save(info.id, info.authorId);
+                const all = await Store.loadAll(info.id)
+                if (Object.values(all).every(Boolean)) {
+                    await Store.maker(info.id, { done: true })
+                    robot.markdown(info.title + "--" + info.target.dingding,
+                        `# ${info.title} \n\n` +
+                        `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url}) `);
 
                     robot.text(`Comment: 找最近的【查看】`, {
                         atMobiles: [info.target.dingding.phone],
                     })
                     return;
                 }
+            } else {
+                return;
+                // 暂时关闭
             }
-            
-            if(info.username === info.target.username) {
+
+            if (info.username === info.target.username) {
                 return;
             }
 
-            robot.markdown(info.title + "--" + info.target.dingding.name, 
-            `# ${info.title} \n`+
-            `开发者： ${info.target.dingding.name} \n\n Comment:  \n\n` +
-            `${info.author} : ${info.msg} \n\n [查看](${info.url}) `);
+            robot.markdown(info.title + "--" + info.target.dingding.name,
+                `# ${info.title} \n` +
+                `开发者： ${info.target.dingding.name} \n\n Comment:  \n\n` +
+                `${info.author} : ${info.msg} \n\n [查看](${info.url}) `);
 
             robot.text(`Comment: 找最近的【查看】`, {
                 atMobiles: [info.target.dingding.phone],
             })
-        } else if(type === 'review') {
+        } else if (type === 'review') {
             robot.markdown(info.title + '-- review',
-            `# ${info.title} \n`+
-            `开发者： ${info.target.dingding.name} \n\n ` +
-            `已经准备好被review了： [查看](${info.url}) `,
+                `# ${info.title} \n` +
+                `开发者： ${info.target.dingding.name} \n\n ` +
+                `已经准备好被review了： [查看](${info.url}) `,
             )
 
-            robot.text('review: 请这些同学review ' + info.atMobiles.map( s => `@${s}`).join(" "), {
+            robot.text('review: 请这些同学review ' + info.atMobiles.map(s => `@${s}`).join(" "), {
                 atMobiles: info.atMobiles
             })
         }
