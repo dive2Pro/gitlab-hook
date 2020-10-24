@@ -5,6 +5,10 @@
   "main": "index.js",
   "dependencies": {
     "dingtalk-robot-sender": "^1.2.0",
+    "egg": "^2.29.1",
+    "egg-bin": "^4.15.0",
+    "egg-mock": "^4.0.1",
+    "egg-mongoose": "^3.3.1",
     "lodash": "^4.17.20",
     "querystring": "^0.2.0"
   },
@@ -12,7 +16,8 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "start": "nodemon --ignore '*.json' index.js"
+    "start": "egg-bin dev",
+    "test": "egg-bin test"
   },
   "keywords": [],
   "author": "",

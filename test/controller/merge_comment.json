@@ -1,0 +1,131 @@
+{
+    "object_kind":"note",
+    "user":{
+        "name":"黄艺川",
+        "username":"toyluck",
+        "avatar_url":"http://www.gravatar.com/avatar/479766d7d99dfb5ea89bca25e0ac2072?s': `80\u0026d=identicon"
+    },
+    "project_id":478,
+    "project":{
+        "name":"wshifu-jiedanyi-rn",
+        "description":"接单易IOS-APP",
+        "web_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+        "avatar_url":null,
+        "git_ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+        "git_http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git",
+        "namespace":"师傅产品开发部H5组 ",
+        "visibility_level":0,
+        "path_with_namespace":"master-h5/wshifu-jiedanyi-rn",
+        "default_branch":"master",
+        "homepage":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+        "url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+        "ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+        "http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git"
+    },
+    "object_attributes":{
+        "id":6521,
+        "note":"fasdfasdf",
+        "noteable_type":"MergeRequest",
+        "author_id":103,
+        "created_at":"2020-10-20 09:30:30 UTC",
+        "updated_at":"2020-10-20 09:30:30 UTC",
+        "project_id":478,
+        "attachment":null,
+        "line_code":"f697426753b4a47b5c308dee86cfba466569244d_246_250",
+        "commit_id":"",
+        "noteable_id":552,
+        "system":false,
+        "st_diff":{
+            "diff":"--- a/src/components/barrageVideo/index.js\n    b/src/components/barrageVideo/index.js\n@@ -224,7  224,9 @@ class BarrageVideo extends BaseComponent {\n                             ]}\r\n                             key={d.text   i}\r\n                         \u003e\r\n-                            \u003cText style={[styles.barrageText, barrageStyle]}\u003e{d.text}\u003c/Text\u003e\r\n                             \u003cView style={styles.barrageContainer}\u003e\r\n                                 \u003cText style={[styles.barrageText, barrageStyle]}\u003e{d.text}\u003c/Text\u003e\r\n                             \u003c/View\u003e\r\n                         \u003c/Animated.View\u003e\r\n                     );\r\n                 })}\r\n@@ -241,8  243,14 @@ const styles = StyleSheet.create({\n         zIndex: 999\r\n     },\r\n     barrageText: {\r\n-        color: '#ffffff',\r\n-        fontSize: 16\r\n         color: '#FF0000',\r\n         fontSize: 13\r\n     },\r\n     barrageContainer: {\r\n         backgroundColor: '#FFFFFF',\r\n         borderRadius: 5,\r\n         padding: 5,\r\n         alignSelf: 'flex-start'\r\n     },\r\n     noWifiMask: {\r\n         position: 'absolute',\r\n",
+            "new_path":"src/components/barrageVideo/index.js",
+            "old_path":"src/components/barrageVideo/index.js",
+            "a_mode":"100644",
+            "b_mode":"100644",
+            "new_file":false,
+            "renamed_file":false,
+            "deleted_file":false,
+            "too_large":false
+        },
+        "updated_by_id":null,
+        "is_award":false,
+        "type":"LegacyDiffNote",
+        "url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn/merge_requests/9#note_6521"
+    },
+    "repository":{
+        "name":"wshifu-jiedanyi-rn",
+        "url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+        "description":"接单易IOS-APP",
+        "homepage":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn"
+    },
+    "merge_request":{
+        "id":552,
+        "target_branch":"jdy4.9.0",
+        "source_branch":"9-corner",
+        "source_project_id":478,
+        "author_id":103,
+        "assignee_id":103,
+        "title":"Resolve  边角需求 ",
+        "created_at":"2020-10-15 11:59:55 UTC",
+        "updated_at":"2020-10-20 09:30:30 UTC",
+        "milestone_id":5,
+        "state":"opened",
+        "merge_status":"can_be_merged",
+        "target_project_id":478,
+        "iid":9,
+        "description":"Closes #9\r\n\r\nreview: @chenhang @toyluck @chenyiqiu ",
+        "position":0,
+        "locked_at":null,
+        "updated_by_id":103,
+        "merge_error":null,
+        "merge_params":{
+            "force_remove_source_branch":"1"
+        },
+        "merge_when_build_succeeds":false,
+        "merge_user_id":null,
+        "merge_commit_sha":null,
+        "deleted_at":null,
+        "source":{
+            "name":"wshifu-jiedanyi-rn",
+            "description":"接单易IOS-APP",
+            "web_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+            "avatar_url":null,
+            "git_ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "git_http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git",
+            "namespace":"师傅产品开发部H5组 ",
+            "visibility_level":0,
+            "path_with_namespace":"master-h5/wshifu-jiedanyi-rn",
+            "default_branch":"master",
+            "homepage":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+            "url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git"
+        },
+        "target":{
+            "name":"wshifu-jiedanyi-rn",
+            "description":"接单易IOS-APP",
+            "web_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+            "avatar_url":null,
+            "git_ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "git_http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git",
+            "namespace":"师傅产品开发部H5组 ",
+            "visibility_level":0,
+            "path_with_namespace":"master-h5/wshifu-jiedanyi-rn",
+            "default_branch":"master",
+            "homepage":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn",
+            "url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "ssh_url":"git@git.wanshifu.com:master-h5/wshifu-jiedanyi-rn.git",
+            "http_url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn.git"
+        },
+        "last_commit":{
+            "id":"2117e43e78f4bafefdff4d72a86f1a3e57764e55",
+            "message":"feat: 培训视频, 给验证码弹幕一个更明显的样式\n",
+            "timestamp":"2020-10-16T15:10:04 08:00",
+            "url":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn/commit/2117e43e78f4bafefdff4d72a86f1a3e57764e55",
+            "author":{
+                "name":"hyc",
+                "email":"toylucklebo@gmail.com"
+            }
+        },
+        "work_in_progress":false
+    }
+}
