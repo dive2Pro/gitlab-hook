@@ -1,4 +1,5 @@
 exports.common = {
+    "id": String,
     "object_kind": {
         type: String
     },
