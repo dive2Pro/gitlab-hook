@@ -412,7 +412,7 @@ exports.mq = {
             "type": "Boolean"
         },
         "url": {
-            "type": "Date"
+            "type": "String"
         },
         "action": {
             "type": "String"

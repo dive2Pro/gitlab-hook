@@ -38,7 +38,8 @@ describe("test/controller/mergeRequest.test.js", () => {
                     @jie @chenyiqiu 看看这个
                     @chenhui
                     `,
-                    action: 'update'
+                    action: 'update',
+                    merge_status: 'can_be_merged'
                 }
             })
             .expect(200)

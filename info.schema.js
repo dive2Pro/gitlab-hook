@@ -1,16 +1,17 @@
-
-exports.merge_request= {
+exports.merge_request = {
     users: [String],
     commits: [String],
     comments: [String],
     id: String,
     merge_requests: [String],
     issues: String,
+    reviewers: [String],
+    updateTime: String,
+    approved: [String]
 }
 
 
-
-exports.commit= {
+exports.commit = {
     users: [String],
     comments: [String],
     id: String,
@@ -19,7 +20,7 @@ exports.commit= {
 }
 
 
-exports.user= {
+exports.user = {
     id: String,
     comments: [String],
     merge_requests: [String],
@@ -28,7 +29,7 @@ exports.user= {
 }
 
 
-exports.issue= {
+exports.issue = {
     id: String,
     comments: [String],
     merge_requests: [String],

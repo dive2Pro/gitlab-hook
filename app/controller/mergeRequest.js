@@ -17,14 +17,15 @@ class MergeRequestController extends Controller {
             id: object_attributes.author_id
         })
 
-        const {id, author_id, description} = object_attributes;
+        const {id, author_id, description, merge_status} = object_attributes;
         const users = await this.ctx.service.common.extractUsersFrom(description);
-
+        const reviewers = Array.from(new Set([...users.map(user => user.id)]));
         const infoMergeRequest = await this.ctx.model.Info.MergeRequest.findOneAndUpdate(
             {id},
             {
                 id,
-                users: Array.from(new Set([...users.map(user => user.id)])),
+                reviewers,
+                users: reviewers
             },
             {
                 upsert: true,
@@ -33,7 +34,11 @@ class MergeRequestController extends Controller {
         this.ctx.body = infoMergeRequest;
 
         // 只要状态是可以review 的, 那么就应该通知
-        this.ctx.service.dingding.review(users, {...object_attributes, user: author})
+
+        if (merge_status === 'can_be_merged' && users.length > 0) {
+            this.ctx.service.dingding.review(users, {...object_attributes, user: author})
+        }
+
     }
 }
 

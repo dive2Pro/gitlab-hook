@@ -1,6 +1,11 @@
 const Service = require("egg").Service;
 
 class Common extends Service {
+
+    containsLGTM(note) {
+        return note.toLowerCase().indexOf('lgtm') > -1;
+    }
+
     async extractUsersFrom(description) {
         const reg = /((@([^\s]*)?\s)|(@(.+)$))/gm;
 
@@ -25,7 +30,7 @@ class Common extends Service {
 
         const id = merge_request[0].trim().replace("!", "");
 
-        return await this.ctx.model.Info.MergeRequest.find({ id });
+        return await this.ctx.model.Info.MergeRequest.find({id});
     }
 }
 

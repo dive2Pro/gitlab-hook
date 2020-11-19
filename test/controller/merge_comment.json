@@ -58,7 +58,7 @@
         "homepage":"http://git.wanshifu.com/master-h5/wshifu-jiedanyi-rn"
     },
     "merge_request":{
-        "id":552,
+        "id": 99,
         "target_branch":"jdy4.9.0",
         "source_branch":"9-corner",
         "source_project_id":478,

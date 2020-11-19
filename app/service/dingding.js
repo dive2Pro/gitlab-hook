@@ -16,6 +16,17 @@ class DingDingService extends Service {
         // 通知
     }
 
+    merge(info) {
+
+        robot.markdown(info.title + "--",
+            `# ${info.title} \n\n` +
+            `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url})
+             **这是演习!!!**
+             `);
+
+        robot.text(`Comment: 找最近的【查看】`, { atMobiles: [info.phone], })
+    }
+
     review(users, object_attributes) {
         const info = {
             url: object_attributes.url,
