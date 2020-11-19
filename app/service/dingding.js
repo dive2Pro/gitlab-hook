@@ -12,6 +12,15 @@ const robot = new Charbot({
 
 class DingDingService extends Service {
 
+    comments(mq, comments) {
+        robot.markdown(mq.title,
+            `# ${mq.title} 已有如下回复,  \n\n` +
+            comments.map(cm => {
+                return `> ${cm.name}: ${cm.note} ; [查看](${cm.url})`
+            }).join("\n\n")
+        )
+    }
+
     comment() {
         // 通知
     }
@@ -24,7 +33,7 @@ class DingDingService extends Service {
              **这是演习!!!**
              `);
 
-        robot.text(`Comment: 找最近的【查看】`, { atMobiles: [info.phone], })
+        robot.text(`Comment: 找最近的【查看】`, {atMobiles: [info.phone],})
     }
 
     review(users, object_attributes) {

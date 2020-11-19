@@ -11,9 +11,9 @@ class Loop {
         this.stop();
         this.timeout = setTimeout(() => {
             cb(this.id);
-            if (this.count <= 6)
-                this.count++;
-            this.update(cb);
+            // if (this.count <= 6)
+            //     this.count++;
+            // this.update(cb);
             // 每 (20 * n) min
         }, (20 * this.count) * 1000 * 60);
     }
@@ -39,7 +39,7 @@ class CronService extends Service {
             weakCache.set(merge_request_id, new Loop(this, merge_request_id));
         }
 
-        // 当什么时候呢
+        // 当有回复的时候, 顺延当前的请求
 
         weakCache.get(merge_request_id).update(this.trigger);
     }
@@ -50,13 +50,22 @@ class CronService extends Service {
             id: merge_request_id,
         }).exec();
 
+        console.log(found, ' ---- ')
+        const comments = []
+        // TODO: 通过测试校验
         for await  (let i of found.comments.slice(-5)) {
             const comment_id = found.comments[i];
-            const found = await this.ctx.model.Gitlab.Comment.findOne({
+            const comment = await this.ctx.model.Gitlab.Comment.findOne({
                 id: comment_id
             }).exec();
-
+            const {object_attributes: {note, url}, user: {name}} = comment;
+            comments.push({note, url, name});
         }
+        const mq = await this.ctx.model.Gitlab.MergeRequest.findOne({
+            id: merge_request_id
+        }).exec();
+
+        this.ctx.service.dingding.comments(mq.object_attributes, comments)
 
     }
 
