@@ -1,5 +1,5 @@
 
-const CommonSchema = require("../../../common.schema").common;
+const CommonSchema = require("../../../common.schema").mq;
 
 module.exports = (app) => {
   const mongoose = app.mongoose;
