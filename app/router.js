@@ -3,5 +3,5 @@ module.exports = app => {
 
     router.get('/', controller.home.index)
     router.post('/comment', controller.comment.index)
-    router.post('/merge_request', controller.mergeRequest.index)
+    router.post('/mergerequest', controller.mergeRequest.index)
 }

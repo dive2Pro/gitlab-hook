@@ -30,7 +30,9 @@ class Common extends Service {
 
         const id = merge_request[0].trim().replace("!", "");
 
-        return await this.ctx.model.Info.MergeRequest.find({id});
+        return this.ctx.model.Info.MergeRequest.findOne({
+            iid: id
+        });
     }
 }
 

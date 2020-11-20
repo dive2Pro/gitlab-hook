@@ -17,7 +17,7 @@ class MergeRequestController extends Controller {
             id: object_attributes.author_id
         })
 
-        const {id, author_id, description, merge_status} = object_attributes;
+        const {id, iid , description, merge_status} = object_attributes;
         const users = await this.ctx.service.common.extractUsersFrom(description);
         const reviewers = Array.from(new Set([...users.map(user => user.id)]));
         const infoMergeRequest = await this.ctx.model.Info.MergeRequest.findOneAndUpdate(
@@ -25,7 +25,8 @@ class MergeRequestController extends Controller {
             {
                 id,
                 reviewers,
-                users: reviewers
+                users: reviewers,
+                iid
             },
             {
                 upsert: true,

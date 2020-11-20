@@ -16,7 +16,8 @@
     "nodemon": "^2.0.6"
   },
   "scripts": {
-    "start": "egg-bin dev",
+    "start": "egg-bin dev --port 3000",
+    "debug": "egg-bin debug --port 3000",
     "test": "egg-bin test"
   },
   "keywords": [],

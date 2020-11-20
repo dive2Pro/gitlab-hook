@@ -49,10 +49,7 @@ class CronService extends Service {
         const found = await this.ctx.model.Info.MergeRequest.findOne({
             id: merge_request_id,
         }).exec();
-
-        console.log(found, ' ---- ')
         const comments = []
-        // TODO: 通过测试校验
         for await  (let i of found.comments.slice(-5)) {
             const comment_id = found.comments[i];
             const comment = await this.ctx.model.Gitlab.Comment.findOne({
@@ -65,8 +62,10 @@ class CronService extends Service {
             id: merge_request_id
         }).exec();
 
-        this.ctx.service.dingding.comments(mq.object_attributes, comments)
-
+        const users = await this.ctx.model.Info.User.find({
+            id: { "$in": found.users }
+        })
+        this.ctx.service.dingding.comments(mq.object_attributes, users, comments)
     }
 
     stopLoop(merge_request_id) {

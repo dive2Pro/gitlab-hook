@@ -7,7 +7,8 @@ exports.merge_request = {
     issues: String,
     reviewers: [String],
     updateTime: String,
-    approved: [String]
+    approved: [String],
+    iid: String
 }
 
 

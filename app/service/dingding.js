@@ -12,13 +12,25 @@ const robot = new Charbot({
 
 class DingDingService extends Service {
 
-    comments(mq, comments) {
-        robot.markdown(mq.title,
-            `# ${mq.title} 已有如下回复,  \n\n` +
-            comments.map(cm => {
-                return `> ${cm.name}: ${cm.note} ; [查看](${cm.url})`
-            }).join("\n\n")
-        )
+    comments(mq, users, comments) {
+
+        robot.markdown(mq.title + ' ---- ',
+            `# 合并请求: ${mq.title}; 已有如下回复,  \n\n` +
+            `>  review [查看](${mq.url}) \n\n`,
+            comments.map((cm, index) => {
+                return `- ${cm.name}: ${cm.note} ; [查看](${cm.url})`
+            }).join("\n\n"),
+            {
+                atMobiles: users.map(user => user.phone)
+            }
+        ).then((res, v) => {
+            console.log(res, v)
+        })
+        ;
+
+        robot.text('review: 下列参与的同学可以去查看咯 ', {
+            atMobiles: users.map(user => user.phone)
+        })
     }
 
     comment() {
@@ -30,7 +42,6 @@ class DingDingService extends Service {
         robot.markdown(info.title + "--",
             `# ${info.title} \n\n` +
             `所有人已经review 完毕， 可以合并了 \n\n [查看](${info.url})
-             **这是演习!!!**
              `);
 
         robot.text(`Comment: 找最近的【查看】`, {atMobiles: [info.phone],})
@@ -48,7 +59,6 @@ class DingDingService extends Service {
             `# ${info.title} \n` +
             `开发者： ${info.target} \n\n ` +
             `已经准备好被review了： [查看](${info.url}) \n
-             **这是演习!!!**
              `,
             info.atMobiles
         )

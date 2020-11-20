@@ -35,37 +35,38 @@ class CommentController extends Controller {
 
         if (!found) {
             // TODO throw error
-        }
-
-        found.users = Array.from(new Set([...found.users, ...users.map(user => user.id)]));
-        found.comments = Array.from(new Set([...found.comments, id]));
-
-        const containsLGTM = this.ctx.service.common.containsLGTM(note);
-        if (containsLGTM) {
-            found.approved = Array.from(new Set([...found.approved, author_id]));
-        }
-
-        await found.save();
-
-        if (found.approved.length === found.reviewers.length) {
-            this.cleanLoop(merge_request_id)
-
-            const mq = await this.ctx.model.Gitlab.MergeRequest.findOne({
-                id: merge_request_id
-            });
-
-            const u = await this.ctx.model.Info.User.findOne({
-                id: author_id
-            });
-            // dingding
-            this.ctx.service.dingding.merge({
-                title: mq.object_attributes.title,
-                url: mq.object_attributes.url,
-                phone: u.phone
-            })
         } else {
-            this.triggerLoop(merge_request_id);
+            found.users = Array.from(new Set([...found.users, ...users.map(user => user.id)]));
+            found.comments = Array.from(new Set([...found.comments, id]));
+
+            const containsLGTM = this.ctx.service.common.containsLGTM(note);
+            if (containsLGTM) {
+                found.approved = Array.from(new Set([...found.approved, author_id]));
+            }
+
+            await found.save();
+
+            if (found.approved.length === found.reviewers.length) {
+                this.cleanLoop(merge_request_id)
+
+                const mq = await this.ctx.model.Gitlab.MergeRequest.findOne({
+                    id: merge_request_id
+                });
+
+                const u = await this.ctx.model.Info.User.findOne({
+                    id: author_id
+                });
+                // dingding
+                this.ctx.service.dingding.merge({
+                    title: mq.object_attributes.title,
+                    url: mq.object_attributes.url,
+                    phone: u.phone
+                })
+            } else {
+                this.triggerLoop(merge_request_id);
+            }
         }
+
         // 3. stop & start an event loop
         this.ctx.body = 'OK';
     }
@@ -74,10 +75,6 @@ class CommentController extends Controller {
 
     }
 
-    // TODO: 每过 20 分钟 检查一下 关联的 merge_request 是否有更新
-    // 钉钉 时间区间 8:30 - 18:00
-    // 没有则 钉钉  通知
-    // 否则 20 + (20 * n ) 再钉
     //  当前的更新时间, 发送消息 发送消息
     triggerLoop(merge_request_id) {
         this.ctx.service.cron.triggerLoop(merge_request_id);
@@ -93,10 +90,15 @@ class CommentController extends Controller {
 
         const found = await this.ctx.model.Info.Commit.findOneAndUpdate({
             id: commit_id,
-        }, {upsert: true});
+        }, {
+            id: commit_id
+        }, {
+            upsert: true,
+            returnOriginal: false
+        });
 
 
-        found.users = Array.from(new Set([...found.users, users.map(user => user.id)]));
+        found.users = Array.from(new Set([...found.users, ...users.map(user => user.id)]));
         found.comments = Array.from(new Set([...found.comments, comment_id]));
 
         // 关联 mergeRequest 和  foundCommit
@@ -108,7 +110,7 @@ class CommentController extends Controller {
 
         // 3. stop & start an event loop
         if (mergeRequest) {
-            this.triggerLoop();
+            this.triggerLoop(mergeRequest.id);
         }
     }
 
