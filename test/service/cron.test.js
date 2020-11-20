@@ -4,7 +4,7 @@ describe('cron operation', () => {
 
     it('trigger event', async () => {
         const ctx = app.mockContext();
-        const saved = await ctx.service.cron.trigger('99');
+        const saved = await ctx.service.cron.trigger('574');
     })
 
 

@@ -86,7 +86,8 @@ class CommentController extends Controller {
         const {id: comment_id, note} = body.object_attributes;
 
         const users = await this.ctx.service.common.extractUsersFrom(note);
-        const mergeRequest = await this.ctx.service.common.extractMergeRequestFrom(note);
+        let mergeRequest = await this.ctx.service.common.extractMergeRequestFrom(note);
+
 
         const found = await this.ctx.model.Info.Commit.findOneAndUpdate({
             id: commit_id,
@@ -97,12 +98,21 @@ class CommentController extends Controller {
             returnOriginal: false
         });
 
+        if (!mergeRequest) {
+            mergeRequest = found.merge_request;
+        }
 
         found.users = Array.from(new Set([...found.users, ...users.map(user => user.id)]));
         found.comments = Array.from(new Set([...found.comments, comment_id]));
 
         // 关联 mergeRequest 和  foundCommit
         if (mergeRequest) {
+            mergeRequest.commits = Array.from(new Set([...mergeRequest.commits, commit_id]));
+            mergeRequest.users = Array.from(new Set([...mergeRequest.users, ...found.users]));
+            mergeRequest.comments = Array.from(new Set([...mergeRequest.comments, ...found.comments]));
+            await this.ctx.model.Info.MergeRequest.findOneAndUpdate({
+                id: mergeRequest.id
+            }, mergeRequest)
             found.merge_request = mergeRequest;
         }
 

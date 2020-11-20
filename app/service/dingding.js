@@ -16,7 +16,7 @@ class DingDingService extends Service {
 
         robot.markdown(mq.title + ' ---- ',
             `# 合并请求: ${mq.title}; 已有如下回复,  \n\n` +
-            `>  review [查看](${mq.url}) \n\n`,
+            `>  review [查看](${mq.url}) \n\n` +
             comments.map((cm, index) => {
                 return `- ${cm.name}: ${cm.note} ; [查看](${cm.url})`
             }).join("\n\n"),

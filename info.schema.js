@@ -16,7 +16,7 @@ exports.commit = {
     users: [String],
     comments: [String],
     id: String,
-    merge_request: String,
+    merge_request: {type: 'Mixed'},
     issues: [String],
 }
 

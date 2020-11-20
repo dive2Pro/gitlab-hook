@@ -3,11 +3,20 @@ const Service = require("egg").Service;
 
 class GitlabService extends Service {
     async saveComment(json) {
-        const comment = new this.ctx.model.Gitlab.Comment({
-            ...json,
-            id: json.object_attributes.id
-        });
-        await comment.save();
+
+        const comment = await this.ctx.model.Gitlab.Comment.findOneAndUpdate(
+            {
+                id: json.object_attributes.id
+            },
+            {
+                id: json.object_attributes.id,
+                ...json
+            },
+            {
+                upsert: true,
+                returnOriginal: false
+            }
+        );
         return "OK";
     }
 
