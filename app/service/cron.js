@@ -50,10 +50,9 @@ class CronService extends Service {
             id: merge_request_id,
         }).exec();
         const comments = []
-        for await  (let i of found.comments.slice(-5)) {
-            const comment_id = found.comments[i];
+        for await  (let id of found.comments.slice(-5)) {
             const comment = await this.ctx.model.Gitlab.Comment.findOne({
-                id: comment_id
+                id
             }).exec();
             const {object_attributes: {note, url}, user: {name}} = comment;
             comments.push({note, url, name});

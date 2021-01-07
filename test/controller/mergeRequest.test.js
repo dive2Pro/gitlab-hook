@@ -7,7 +7,7 @@ describe("test/controller/mergeRequest.test.js", () => {
 
         return app
             .httpRequest()
-            .post("/merge_request")
+            .post("/mergerequest")
             .type("form")
             .send(DATA_MERGE_CREATE)
             .expect(200)
@@ -18,7 +18,7 @@ describe("test/controller/mergeRequest.test.js", () => {
 
         return app
             .httpRequest()
-            .post("/merge_request")
+            .post("/mergerequest")
             .type("form")
             .send({...DATA_MERGE_CREATE, object_attributes: {...DATA_MERGE_CREATE.object_attributes, action: 'update'}})
             .expect(200)
@@ -29,7 +29,7 @@ describe("test/controller/mergeRequest.test.js", () => {
 
         return app
             .httpRequest()
-            .post("/merge_request")
+            .post("/mergerequest")
             .type("form")
             .send({
                 ...DATA_MERGE_CREATE, object_attributes: {

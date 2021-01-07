@@ -34,6 +34,12 @@ class Common extends Service {
             iid: id
         });
     }
+
+    extractNowFrom(note) {
+        const reg = /(now!$)/gm;
+        const rightNow = reg.exec(note);
+        return !!rightNow;
+    }
 }
 
 module.exports = Common;

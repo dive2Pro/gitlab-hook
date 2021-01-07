@@ -63,12 +63,20 @@ class CommentController extends Controller {
                     phone: u.phone
                 })
             } else {
-                this.triggerLoop(merge_request_id);
+                if (this.ctx.service.common.extractNowFrom(note)) {
+                    this.triggerNow(merge_request_id);
+                } else {
+                    this.triggerLoop(merge_request_id);
+                }
             }
         }
 
         // 3. stop & start an event loop
         this.ctx.body = 'OK';
+    }
+
+    triggerNow(id) {
+        this.ctx.service.cron.trigger(id);
     }
 
     cleanLoop(merge_request_id) {
@@ -120,7 +128,11 @@ class CommentController extends Controller {
 
         // 3. stop & start an event loop
         if (mergeRequest) {
-            this.triggerLoop(mergeRequest.id);
+            if (this.ctx.service.common.extractNowFrom(note)) {
+                this.triggerNow(mergeRequest.id);
+            } else {
+                this.triggerLoop(mergeRequest.id);
+            }
         }
     }
 

@@ -8,7 +8,8 @@ exports.merge_request = {
     reviewers: [String],
     updateTime: String,
     approved: [String],
-    iid: String
+    iid: String,
+    author: String
 }
 
 

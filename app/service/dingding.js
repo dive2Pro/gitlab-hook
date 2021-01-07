@@ -37,6 +37,19 @@ class DingDingService extends Service {
         // 通知
     }
 
+    merged(info) {
+        robot.markdown(info.title + '-- review',
+            `# ${info.title} \n` +
+            `开发者： ${info.target} \n\n ` +
+            `已经准备被 merged [查看](${info.url}) \n +
+            合并者: ${info.name}`,
+        )
+
+        robot.text(`Comment: 找最近的【查看】`, {
+            atMobiles: info.atMobiles,
+        })
+    }
+
     merge(info) {
 
         robot.markdown(info.title + "--",
@@ -47,13 +60,7 @@ class DingDingService extends Service {
         robot.text(`Comment: 找最近的【查看】`, {atMobiles: [info.phone],})
     }
 
-    review(users, object_attributes) {
-        const info = {
-            url: object_attributes.url,
-            target: object_attributes.user.name,
-            title: object_attributes.title,
-            atMobiles: users.map(user => user.phone)
-        }
+    review(users, info) {
 
         robot.markdown(info.title + '-- review',
             `# ${info.title} \n` +
